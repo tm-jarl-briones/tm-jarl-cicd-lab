@@ -9,7 +9,7 @@ def main(args):
 
 def parse_arguments():
     
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 
     parser.add_argument('--num_a', required=True, type=float)
     parser.add_argument('--num_b', required=True, type=float)
