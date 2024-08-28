@@ -1,4 +1,4 @@
-name: "Env1 Test Workflow"
+name: "Env2 Test Workflow"
 on:
   workflow_dispatch:
 
