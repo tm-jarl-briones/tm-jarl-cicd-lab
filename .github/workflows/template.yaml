@@ -1,10 +1,6 @@
 name: "My Template Workflow"
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_call:
     inputs:
       GHA_ENVIRONMENT:
