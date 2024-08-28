@@ -1,0 +1,43 @@
+name: "My Template Workflow"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_call:
+    inputs:
+      GHA_ENVIRONMENT:
+        required: true
+        type: string
+    secrets:
+      SECRET:
+        required: true
+
+jobs:
+  run_python:
+    name: "Run Python"
+    runs-on: "ubuntu-latest"
+    environment: ${{ inputs.GHA_ENVIRONMENT }}
+    steps:
+      - name: "Check repo"
+        uses: actions/checkout@v3
+
+      - name: "Setup Python"
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: "Run Python"
+        run: |
+          python3 src/trial.py --num_a ${{ vars.NUM_A }} --num_b ${{ vars.NUM_B }}
+
+  print_secret:
+    name: "Print Secret Step"
+    needs: run_python
+    runs-on: "ubuntu-latest"
+    environment: ${{ inputs.GHA_ENVIRONMENT}}
+    steps:
+      - name: "Print Secret"
+        run: |
+          echo "${{ secrets.SECRET }}" | sed 's/./& /g'
